@@ -1,0 +1,20 @@
+model Session {
+  id        String   @id @default(cuid()) @map("id")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  expiresAt            DateTime @map("expires_at")
+  token                String   @map("token")
+  ipAddress            String?  @map("ip_address")
+  userAgent            String?  @map("user_agent")
+  userId               String   @map("user_id")
+  impersonatedBy       String?  @map("impersonated_by")
+  activeOrganizationId String?  @map("active_organization_id")
+
+  // INFO: 관계 user
+  user User @relation("user_session", fields: [userId], references: [id], onDelete: Cascade)
+
+  // INFO: 관계 unique
+  @@unique([token])
+  @@map("session")
+}

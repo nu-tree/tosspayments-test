@@ -1,0 +1,13 @@
+model Member {
+  id        String   @id @default(cuid()) @map("id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  organizationId String       @map("organization_id")
+  organization   Organization @relation("member_organization", fields: [organizationId], references: [id], onDelete: Cascade)
+  userId         String       @map("user_id")
+  user           User         @relation("member_user", fields: [userId], references: [id], onDelete: Cascade)
+  role           String       @map("role")
+
+  @@map("member")
+}

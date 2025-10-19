@@ -1,0 +1,24 @@
+/**
+ * 사용자 약관 동의 이력
+ * SiteTermsSetting에 정의된 약관에 대한 사용자별 동의 기록
+ */
+model UserConsent {
+  id        String   @id @default(cuid()) @map("id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  userId String @map("user_id")
+  user   User   @relation("user_consents", fields: [userId], references: [id], onDelete: Cascade)
+
+  // SiteTermsSetting과 연결
+  termsKey     String    @map("terms_key") // 약관 키 (예: privacy_policy, terms_of_service)
+  termsVersion String    @map("terms_version") // 동의한 약관의 ID (SiteTermsSetting.id)
+  agreed       Boolean   @default(false) @map("agreed") // 동의 여부
+  agreedAt     DateTime? @map("agreed_at") // 동의 일시
+  revokedAt    DateTime? @map("revoked_at") // 동의 철회 일시
+  ipAddress    String?   @map("ip_address") // 동의 시 IP 주소 (법적 증빙)
+
+  @@unique([userId, termsKey, termsVersion]) // 같은 사용자가 같은 버전에 중복 동의 방지
+  @@index([userId, termsKey])
+  @@map("user_consent")
+}

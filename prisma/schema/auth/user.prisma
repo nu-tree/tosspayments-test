@@ -1,0 +1,41 @@
+/**
+ * 사용자 권한
+ */
+enum USER_ROLE {
+  admin
+  user
+  host
+}
+
+model User {
+  id        String   @id @default(cuid()) @map("id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  email         String    @unique @map("email")
+  name          String?   @map("name")
+  password      String?   @map("password")
+  phoneNumber   String?   @map("phone_number")
+  role          USER_ROLE @default(admin) @map("role")
+  emailVerified Boolean   @default(false) @map("email_verified")
+  image         String?   @map("image")
+  banned        Boolean?  @map("banned")
+  banReason     String?   @map("ban_reason")
+  banExpires    DateTime? @map("ban_expires")
+
+  // INFO: 관계 session
+  sessions Session[] @relation("user_session")
+
+  // INFO: 관계 account
+  accounts Account[] @relation("account_user")
+
+  // INFO: 관계 member
+  members Member[] @relation("member_user")
+
+
+  // INFO: 관계 userConsents
+  consents UserConsent[] @relation("user_consents")
+
+
+  @@map("user")
+}

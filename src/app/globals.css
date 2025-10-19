@@ -1,0 +1,237 @@
+/*
+=====================================
+  NOTE 전역 스타일 설정 파일
+  - Tailwind CSS 기반 디자인 시스템
+  @ref https://v04.krds.go.kr/guide/style/style_02.html
+
+  - 50이 기본 색상
+  - hover시 75 사용
+  - pressed는 75 사용
+  - disabled는 gray-25 사용
+=====================================
+*/
+
+/* Tailwind CSS 기본 스타일 import */
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  /* 폰트 설정 */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  /* 기본 색상 토큰 */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* 주요 색상 */
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  /* 상태 색상 */
+  --color-destructive: var(--destructive);
+
+  /* UI 요소 색상 */
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* 차트 색상 팔레트 */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* 사이드바 색상 */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* 반지름 설정 (border-radius) */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  /* 기본 반지름 설정 */
+  --radius: 0.625rem;
+
+  --gray-25: oklch(0.902 0 0);
+  --gray-50: oklch(0.799 0 0);
+  --gray-75: oklch(0.627 0 0);
+  --gray-100: oklch(0.445 0 0);
+
+  --danger-25: oklch(0.818 0.153 27);
+  --danger-50: oklch(0.637 0.234 27);
+  --danger-75: oklch(0.577 0.245 27);
+  --danger-100: oklch(0.385 0.196 27);
+
+  --destructive: oklch(0.577 0.245 27.325);
+
+  --success-25: oklch(0.902 0.116 148);
+  --success-50: oklch(0.722 0.204 148);
+  --success-75: oklch(0.568 0.194 148);
+  --success-100: oklch(0.39 0.12 148);
+
+  --warning-25: oklch(0.95 0.1 70);
+  --warning-50: oklch(0.815 0.184 70);
+  --warning-75: oklch(0.635 0.21 70);
+  --warning-100: oklch(0.47 0.16 70);
+
+  --info-25: oklch(0.91 0.06 220);
+  --info-50: oklch(0.72 0.15 220);
+  --info-75: oklch(0.56 0.145 220);
+  --info-100: oklch(0.4 0.12 220);
+
+  /* 기본 배경 및 텍스트 색상 */
+  --background: oklch(1 0 0); /* 순백색 배경 */
+  --foreground: oklch(0.145 0 0); /* 진한 회색 텍스트 */
+
+  /* 카드 컴포넌트 색상 */
+  --card: oklch(1 0 0); /* 카드 배경 */
+  --card-foreground: oklch(0.145 0 0); /* 카드 텍스트 */
+
+  /* 팝오버 컴포넌트 색상 */
+  --popover: oklch(1 0 0); /* 팝오버 배경 */
+  --popover-foreground: oklch(0.145 0 0); /* 팝오버 텍스트 */
+
+  /* 강조 색상 */
+  --accent: oklch(0.97 0 0); /* 강조 배경 */
+  --accent-foreground: oklch(0.205 0 0); /* 강조 텍스트 */
+
+  /* 음소거된 색상 */
+  --muted: oklch(0.97 0 0); /* 음소거 배경 */
+  --muted-foreground: oklch(0.556 0 0); /* 음소거 텍스트 */
+
+  /* UI 요소 색상 */
+  --border: oklch(0.922 0 0); /* 테두리 색상 */
+  --input: oklch(0.922 0 0); /* 입력 필드 배경 */
+  --ring: oklch(0.708 0 0); /* 포커스 링 */
+
+  /* 차트 색상 팔레트 */
+  --chart-1: oklch(0.646 0.222 41.116); /* 주황색 계열 */
+  --chart-2: oklch(0.6 0.118 184.704); /* 청록색 계열 */
+  --chart-3: oklch(0.398 0.07 227.392); /* 파란색 계열 */
+  --chart-4: oklch(0.828 0.189 84.429); /* 노란색 계열 */
+  --chart-5: oklch(0.769 0.188 70.08); /* 연두색 계열 */
+
+  /* 사이드바 색상 */
+  --sidebar: oklch(0.985 0 0); /* 사이드바 배경 */
+  --sidebar-foreground: oklch(0.145 0 0); /* 사이드바 텍스트 */
+  --sidebar-primary: oklch(0.205 0 0); /* 사이드바 주요 색상 */
+  --sidebar-primary-foreground: oklch(0.985 0 0); /* 사이드바 주요 텍스트 */
+  --sidebar-accent: oklch(0.97 0 0); /* 사이드바 강조 색상 */
+  --sidebar-accent-foreground: oklch(0.205 0 0); /* 사이드바 강조 텍스트 */
+  --sidebar-border: oklch(0.922 0 0); /* 사이드바 테두리 */
+  --sidebar-ring: oklch(0.708 0 0); /* 사이드바 포커스 링 */
+
+  /* NOTE: 여기부터 테마 색상 */
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --primary-25: oklch(0.847 0.096 259.7);
+  --primary-50: oklch(0.692 0.186 259.7);
+  --primary-75: oklch(0.61 0.222 259.7);
+  --primary-100: oklch(0.423 0.146 259.7);
+
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --secondary-25: oklch(0.821 0.02 257.3);
+  --secondary-50: oklch(0.516 0.072 257.3);
+  --secondary-75: oklch(0.384 0.098 257.3);
+  --secondary-100: oklch(0.247 0.07 257.3);
+
+  --header-height: calc(var(--spacing) * 20);
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.488 0.243 264.376);
+  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-3: oklch(0.769 0.188 70.08);
+  --chart-4: oklch(0.627 0.265 303.9);
+  --chart-5: oklch(0.645 0.246 16.439);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  /* 모든 요소에 기본 테두리와 아웃라인 스타일 적용 */
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox  */
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+}
+
+@layer components {
+  .grid-auto-columns {
+    display: grid;
+    grid-template-columns: repeat(
+      var(--grid-auto-type, auto-fit),
+      minmax(min(var(--grid-max-col-size, 100%), calc(100% / var(--grid-max-col-count, 1))), 1fr)
+    );
+    gap: var(--grid-gap, 0rem);
+  }
+}
+
+/* 유틸리티 클래스 */
+@layer utilities {
+}
+
+* {
+  word-break: keep-all;
+}
