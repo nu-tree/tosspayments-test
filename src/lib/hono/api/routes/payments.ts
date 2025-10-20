@@ -1,14 +1,5 @@
 import { createRoute } from '@hono/zod-openapi';
-import { z } from 'zod';
-
-/**
- * 결제 승인 요청 스키마
- */
-export const ConfirmPaymentSchema = z.object({
-  paymentKey: z.string().min(1, '결제 키가 필요합니다.'),
-  orderId: z.string().min(1, '주문번호가 필요합니다.'),
-  amount: z.string().min(1, '결제 금액이 필요합니다.'),
-});
+import { confirmPaymentBodySchema, confirmPaymentResponseSchema } from '../schema/payments-schema';
 
 /**
  * 결제 승인 라우트
@@ -23,7 +14,7 @@ export const confirmPaymentRoute = createRoute({
     body: {
       content: {
         'application/json': {
-          schema: ConfirmPaymentSchema,
+          schema: confirmPaymentBodySchema,
         },
       },
     },
@@ -31,6 +22,11 @@ export const confirmPaymentRoute = createRoute({
   responses: {
     200: {
       description: '결제 승인 성공',
+      content: {
+        'application/json': {
+          schema: confirmPaymentResponseSchema,
+        },
+      },
     },
     400: {
       description: '잘못된 요청',
@@ -43,7 +39,4 @@ export const confirmPaymentRoute = createRoute({
     },
   },
 });
-
-// 타입 추출
-export type ConfirmPaymentSchema = z.infer<typeof ConfirmPaymentSchema>;
 

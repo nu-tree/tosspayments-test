@@ -1,6 +1,7 @@
 import { OpenAPIHono } from '@hono/zod-openapi';
-import { confirmPaymentRoute, ConfirmPaymentSchema } from '../routes/payments';
-import { apiSuccess, apiErrorHelpers } from '../../helpers/api-response';
+import { confirmPaymentRoute } from '../routes/payments';
+import { type ConfirmPaymentBody } from '../schema/payments-schema';
+import { apiErrorHelpers } from '../../helpers/api-response';
 
 /**
  * 결제 승인 핸들러
@@ -17,7 +18,7 @@ const confirmPaymentHandler = async (c: any) => {
     // ============================================================
     // 클라이언트에서 받은 JSON 요청 바디
     // ============================================================
-    const body = c.req.valid('json') as ConfirmPaymentSchema;
+    const body = c.req.valid('json') as ConfirmPaymentBody;
     const { paymentKey, orderId, amount } = body;
 
     // ============================================================
