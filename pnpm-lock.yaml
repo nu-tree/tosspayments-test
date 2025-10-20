@@ -321,6 +321,9 @@ importers:
       '@tailwindcss/postcss':
         specifier: ^4.1.14
         version: 4.1.14
+      '@tosspayments/tosspayments-sdk':
+        specifier: ^2.4.0
+        version: 2.4.0
       '@types/file-saver':
         specifier: ^2.0.7
         version: 2.0.7
@@ -2318,6 +2321,9 @@ packages:
 
   '@tiptap/starter-kit@3.6.6':
     resolution: {integrity: sha512-pKTlQEdyiy6aebjpOyWzjxmyPHM6mUEOHhyAN9hxCpHhkDHcOt3+CX+YlodDtrIfNdPEDyrvsDlvtrEavSTQLw==}
+
+  '@tosspayments/tosspayments-sdk@2.4.0':
+    resolution: {integrity: sha512-Ljs9QCl45+mehyykPcWN2kh562Uo5a4kQIqentKvdv+YQ+yz6L2F2Kgph1vJcoQKk8vZKHckBezlmFW6MGl8Ww==}
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
@@ -7161,6 +7167,8 @@ snapshots:
       '@tiptap/extension-underline': 3.6.6(@tiptap/core@3.6.6(@tiptap/pm@3.6.6))
       '@tiptap/extensions': 3.6.6(@tiptap/core@3.6.6(@tiptap/pm@3.6.6))(@tiptap/pm@3.6.6)
       '@tiptap/pm': 3.6.6
+
+  '@tosspayments/tosspayments-sdk@2.4.0': {}
 
   '@tybys/wasm-util@0.10.1':
     dependencies:
