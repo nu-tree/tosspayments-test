@@ -2,9 +2,10 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { CheckCircle2, Loader2, AlertCircle } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { usePaymentsConfirm } from '@/hooks/apis/payments/use-payments-confirm';
 
 /**
  * 결제 성공 컴포넌트
@@ -12,48 +13,31 @@ import { useEffect, useState } from 'react';
 export const PaymentSuccess = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [isConfirming, setIsConfirming] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   const orderId = searchParams.get('orderId');
   const amount = searchParams.get('amount');
   const paymentKey = searchParams.get('paymentKey');
 
+  const { mutate: confirmPayment, isPending, isError, error } = usePaymentsConfirm();
+
   useEffect(() => {
-    if (!orderId || !amount || !paymentKey) {
-      setError('결제 정보가 올바르지 않습니다.');
-      setIsConfirming(false);
-      return;
-    }
+    if (!orderId || !amount || !paymentKey) return;
 
-    const confirmPayment = async () => {
-      try {
-        const response = await fetch('/api/payments/confirm', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ orderId, amount, paymentKey }),
-        });
+    confirmPayment(
+      { orderId, amount, paymentKey },
+      {
+        onSuccess: (data) => {
+          console.log('결제 승인 완료:', data);
+        },
+        onError: (err: any) => {
+          console.error('결제 승인 실패:', err);
+          router.push(`/tosspay-ments/fail?message=${err.message}&code=${err.code}`);
+        },
+      },
+    );
+  }, [orderId, amount, paymentKey, confirmPayment, router]);
 
-        const result = await response.json();
-
-        if (!response.ok) {
-          router.push(`/tosspay-ments/fail?message=${result.message}&code=${result.code}`);
-          return;
-        }
-
-        console.log('결제 승인 완료:', result);
-        setIsConfirming(false);
-      } catch (err) {
-        console.error('결제 승인 중 오류:', err);
-        setError('결제 승인 중 오류가 발생했습니다.');
-        setIsConfirming(false);
-      }
-    };
-
-    confirmPayment();
-  }, [orderId, amount, paymentKey, router]);
-
-  if (error) {
+  if (!orderId || !amount || !paymentKey) {
     return (
       <section className="flex min-h-screen items-center justify-center p-4">
         <Card className="w-full max-w-md">
@@ -65,7 +49,7 @@ export const PaymentSuccess = () => {
           </CardHeader>
           <CardContent>
             <Alert variant="destructive">
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription>결제 정보가 올바르지 않습니다.</AlertDescription>
             </Alert>
             <Button onClick={() => router.push('/tosspay-ments')} className="mt-6 w-full" variant="secondary">
               돌아가기
@@ -76,7 +60,7 @@ export const PaymentSuccess = () => {
     );
   }
 
-  if (isConfirming) {
+  if (isPending) {
     return (
       <section className="flex min-h-screen items-center justify-center p-4">
         <Card className="w-full max-w-md">
