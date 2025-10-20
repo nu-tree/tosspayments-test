@@ -18,7 +18,7 @@ export const PaymentSuccess = () => {
   const amount = searchParams.get('amount');
   const paymentKey = searchParams.get('paymentKey');
 
-  const { mutate: confirmPayment, isPending, isError, error } = usePaymentsConfirm();
+  const { mutate: confirmPayment, isPending, data: paymentData } = usePaymentsConfirm();
 
   useEffect(() => {
     if (!orderId || !amount || !paymentKey) return;
@@ -95,12 +95,29 @@ export const PaymentSuccess = () => {
               <span className="text-muted-foreground">결제 금액</span>
               <span className="font-medium">{Number(amount).toLocaleString()}원</span>
             </div>
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">결제 키</span>
-              <span className="truncate font-mono text-xs">{paymentKey}</span>
-            </div>
+            {paymentData?.method && (
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">결제 수단</span>
+                <span className="font-medium">{paymentData.method}</span>
+              </div>
+            )}
+            {paymentData?.approvedAt && (
+              <div className="flex justify-between text-sm">
+                <span className="text-muted-foreground">승인 시간</span>
+                <span className="font-medium">{new Date(paymentData.approvedAt).toLocaleString('ko-KR')}</span>
+              </div>
+            )}
           </div>
-          <Button onClick={() => router.push('/tosspay-ments')} className="mt-6 w-full" size="lg">
+          {paymentData?.receipt?.url && (
+            <Button
+              onClick={() => window.open(paymentData.receipt.url, '_blank')}
+              variant="outline"
+              className="mt-4 w-full"
+            >
+              영수증 보기
+            </Button>
+          )}
+          <Button onClick={() => router.push('/tosspay-ments')} className="mt-4 w-full" size="lg">
             확인
           </Button>
         </CardContent>
