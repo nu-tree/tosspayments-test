@@ -19,7 +19,7 @@ export const Payments = ({ className }: Readonly<Props>) => {
 
   const { isLoading, error, isReady, setAmount: updateAmount, renderPaymentWidget, renderAgreement, requestPayment } =
     useTossPayments({
-      clientKey: 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm',
+      clientKey: process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_ID!,
       customerKey: 'utDvvoe_AthCNhAHlCMth',
     });
 
@@ -48,11 +48,12 @@ export const Payments = ({ className }: Readonly<Props>) => {
 
   const handlePayment = async () => {
     try {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || window.location.origin;
       await requestPayment({
         orderId: `order-${Date.now()}`,
         orderName: '토스 티셔츠 외 2건',
-        successUrl: `${window.location.origin}/tosspay-ments/success`,
-        failUrl: `${window.location.origin}/tosspay-ments/fail`,
+        successUrl: `${baseUrl}/tosspay-ments/success`,
+        failUrl: `${baseUrl}/tosspay-ments/fail`,
         customerEmail: 'customer123@gmail.com',
         customerName: '김토스',
         customerMobilePhone: '01012341234',
