@@ -1,8 +1,6 @@
-export default async function Page({ params, searchParams }: PageProps<'/tosspay-ments/success'>) {
-  return (
-    <section>
+import { PaymentSuccess } from '@/components/pages/payment-success';
 
-    </section>
-  )
-};
+export default async function Page({ params, searchParams }: PageProps<'/tosspay-ments/success'>) {
+  return <PaymentSuccess />;
+}
 
