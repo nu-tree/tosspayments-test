@@ -10,6 +10,7 @@ import { session } from '@/lib/hono/middleware/session';
 import { HTTPException } from 'hono/http-exception';
 import { otpRouter } from '@/lib/hono/api/service/otp';
 import { usersRouter } from '@/lib/hono/api/service/users';
+import { paymentsRouter } from '@/lib/hono/api/service/payments';
 
 const app = new OpenAPIHono<{ Variables: AuthType }>().basePath('/api');
 const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
@@ -111,6 +112,7 @@ app.notFound((c) => {
 
 app.route('/otp', otpRouter);
 app.route('/users', usersRouter);
+app.route('/payments', paymentsRouter);
 
 // Swagger UI
 app.get('/docs', swaggerUI({ url: '/api/doc' }));
